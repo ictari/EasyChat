@@ -1,0 +1,51 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+.progress-bar {
+    width: 100%;
+}
+
+.messages {
+    overflow-y: scroll;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+    .messages table {
+        margin-bottom: 0;
+    }
+
+    .messages .username {
+        font-weight: bold;
+         width:130px;
+    }
+
+.user-list {
+    border-left: 1px solid #ddd;
+    height: 300px;
+}
+
+    .user-list h4 {
+        margin-top: 0px;
+    }
+
+    .user-list .name{
+        font-weight:bold;
+        margin-bottom:2px;
+    }

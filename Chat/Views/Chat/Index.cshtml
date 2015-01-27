@@ -1,0 +1,64 @@
+﻿@model IEnumerable<string>
+<h2>Welcome to Chat Room</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section class="messages">
+            <table class="table table-striped table-bordered">
+                <tbody data-bind="foreach:messages">
+                    <tr>
+                        <td class="username text-info" data-bind="text:username"></td>
+                        <td data-bind="html:message"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <div class="input-group">
+            <input type="text" data-bind="textInput: message,event:{ keypress: onEnter }" class="form-control" placeholder="Your message..." />
+            <span class="input-group-btn">
+                <button class="btn btn-success" type="button" data-bind="click: sendMessage, attr:{ disabled: !canSend() }">Send Message!</button>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-4 user-list">
+        <h4>Online Users</h4>
+        <ul class="list-unstyled" data-bind="foreach:users">
+            <li>
+                <i class=" glyphicon glyphicon-user text-success"></i> <span class="name" data-bind="text:username"></span>
+                <span data-bind="visible:typing">...<i class="glyphicon glyphicon-pencil"></i></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="modal" id="loading" tabindex="-1">
+    <div class="modal-dialog">       
+        <div class="modal-content">
+            <!-- ko ifnot: error-->
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Initializing, Please Waiting!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active"role="progressbar">
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: error-->
+            <div class="modal-header">
+                <h4 class="modal-title text-center text-danger">Maximum user limit reached, please try again later</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-block btn-primary" data-bind="click:logout">Log out <i class="glyphicon glyphicon-log-out"></i></button>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/knockout-3.2.0.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+}
