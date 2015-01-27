@@ -69,23 +69,11 @@ namespace Chat.Hubs
         private void Connected()
         {
             var key = Identity.GetUserId();
-            if (UserLimitNotReached() || connectionManager.Exist(key)) // Double-checked locking http://en.wikipedia.org/wiki/Double-checked_locking
-            {
-                lock (connectionManager)
-                {
-                    if (UserLimitNotReached() || connectionManager.Exist(key))
-                    {
-                        var newUser = connectionManager.Add(key, Context.ConnectionId, Identity.Name);
 
-                        if (newUser)
-                            Clients.Others.UserConnected(key, Identity.Name);
+            var newUser = connectionManager.Add(key, Context.ConnectionId, Identity.Name);
 
-                        return;
-                    }
-                }
-            }
-
-            Clients.Caller.LimitReached();
+            if (newUser)
+                Clients.Others.UserConnected(key, Identity.Name);
         }
 
         private bool UserLimitNotReached()
@@ -96,7 +84,6 @@ namespace Chat.Hubs
         public override Task OnDisconnected(bool stopCalled)
         {
             var userRemoved = connectionManager.Remove(Identity.GetUserId(), Context.ConnectionId);
-
             if (userRemoved)
                 Clients.All.UserDisconnected(Identity.GetUserId());
 

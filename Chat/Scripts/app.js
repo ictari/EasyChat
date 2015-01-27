@@ -71,21 +71,11 @@ chat.client.typing = function (id, typing) {
         user.typing(typing);
 };
 
-var limitReached = false;
-chat.client.limitReached = function () {
-    limitReached = true;
-    model.error(true);
-    modal.modal('show');
-    $.connection.hub.stop();
-};
 model.canSend.subscribe(function () {
     chat.server.typing(model.canSend());
 });
-
 $.connection.hub.start().done(function () {
     $.getJSON('/initialize').done(function (data) {
-        if (limitReached)
-            return;
         _.each(data.users, function (user) {
             model.users.push({ id: user.id, username: user.username, typing: ko.observable(user.typing) });
         });
@@ -96,7 +86,8 @@ $.connection.hub.start().done(function () {
         model.initalized(true);
         modal.modal('hide');
     });
-})
+});
+
 window.onbeforeunload = function (e) {
     $.connection.hub.stop();
 };
