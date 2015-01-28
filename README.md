@@ -1,4 +1,5 @@
 # EasyChat
-Simple chat application for demonstration Signalr usage and Unit Testing.
+Easy Chat is simple project for demonstrating SignalR usage, best practices and
+Unit Testing.
 
 http://easychat.azurewebsites.net
