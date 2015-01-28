@@ -17,9 +17,8 @@ using Microsoft.AspNet.Identity;
 namespace Chat.Tests
 {
     [TestClass]
-    public partial class HubTests
+    public class HubTests
     {
-
         [TestMethod]
         public async Task ShouldSendMessageAndSaveToDatabase()
         {
@@ -85,26 +84,6 @@ namespace Chat.Tests
         }
 
         [TestMethod]
-        public async Task ShouldFailToConnectOnMaximumUserLimitReached()
-        {
-            var mockChatContext = GetMockChatDbContext();
-            var mockConnectionManager = new Mock<IConnectionManager>();
-            var hub = new TestableChatHub(mockConnectionManager, mockChatContext);
-
-            var userid = hub.Identity.GetUserId();
-            var name = hub.Identity.Name;
-            var connectionId = Guid.NewGuid().ToString();
-            hub.MockContext.SetupGet(m => m.ConnectionId).Returns(connectionId);
-            mockConnectionManager.SetupGet(m => m.KeyCount).Returns(20);
-
-            await hub.OnConnected();
-
-            mockConnectionManager.Verify(m => m.Add(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-            hub.MockCaller.Verify(m => m.LimitReached(), Times.Once);
-            hub.MockCaller.Verify(m => m.UserConnected(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-        }
-
-        [TestMethod]
         public async Task ShouldRemoveConnectionOnDisconnect()
         {
             var mockChatContext = GetMockChatDbContext();
@@ -119,6 +98,19 @@ namespace Chat.Tests
 
             mockConnectionManager.Verify(m => m.Remove(userid, connectionId), Times.Once);
 
+        }
+
+        public Mock<IChatDbContext> GetMockChatDbContext()
+        {
+            // Create some test data
+            var data = new List<Message> { };
+
+            // Create a mock set and context
+            var set = new Mock<DbSet<Message>>().SetupData(data);
+
+            var context = new Mock<IChatDbContext>();
+            context.Setup(c => c.Messages).Returns(set.Object);
+            return context;
         }
     }
 

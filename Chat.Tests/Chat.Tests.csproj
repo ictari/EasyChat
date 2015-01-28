@@ -128,7 +128,7 @@
   <ItemGroup>
     <Compile Include="ConnectionManagerTests.cs" />
     <Compile Include="HubTests.cs" />
-    <Compile Include="PartialHubTests.cs" />
+    <Compile Include="TestableChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

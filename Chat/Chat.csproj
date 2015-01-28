@@ -178,7 +178,6 @@
     <Compile Include="Infrastructure\HubBase.cs" />
     <Compile Include="Infrastructure\IChatDbContext.cs" />
     <Compile Include="Infrastructure\IConnectionManager.cs" />
-    <Compile Include="Infrastructure\UserLimitAuthorizeAttribute.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
@@ -253,7 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -13,8 +13,6 @@ namespace Chat.Hubs
 
         void UserConnected(string userId, string username);
 
-        void LimitReached();
-
         void UserDisconnected(string userId);
     }
 }

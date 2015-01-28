@@ -27,7 +27,6 @@ namespace Chat.Hubs
             this.chatContext = chatContext;
         }
 
-        [UserLimitAuthorize]
         public async Task SendMessage(string message)
         {
             Clients.All.SendMessage(Identity.Name, message);
@@ -44,7 +43,6 @@ namespace Chat.Hubs
 
         }
 
-        [UserLimitAuthorize]
         public void Typing(bool typing)
         {
             var user = connectionManager.GetUser(Identity.GetUserId());
@@ -74,11 +72,6 @@ namespace Chat.Hubs
 
             if (newUser)
                 Clients.Others.UserConnected(key, Identity.Name);
-        }
-
-        private bool UserLimitNotReached()
-        {
-            return connectionManager.KeyCount < maximumUserLimit;
         }
 
         public override Task OnDisconnected(bool stopCalled)
