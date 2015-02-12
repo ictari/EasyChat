@@ -9,7 +9,7 @@ namespace Chat.Models
     public class LoginViewModel
     {
         
-        [Display(Name = "Username")]
+        [Display(Name = "Your Nick")]
         [Required]
         public string Username { get; set; }
     }
