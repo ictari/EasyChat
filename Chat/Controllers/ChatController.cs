@@ -33,7 +33,7 @@ namespace Chat.Controllers
         public ActionResult GetUsers()
         {          
             var users = connectionManager.GetUsers();
-            var messages = chatContext.Messages.OrderByDescending(m => m.Date)
+            var messages = chatContext.Messages.OrderByDescending(m => m.DateUtc)
                                       .Take(15)
                                       .Select(s => new { s.Username, Message = s.MessageText });
             return Json(new
