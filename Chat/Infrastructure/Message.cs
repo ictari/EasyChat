@@ -11,7 +11,7 @@ namespace Chat.Infrastructure
 
         public string MessageText { get; set; }
 
-        public DateTime DateUtc { get; set; }
+        public DateTimeOffset Date { get; set; }
 
     }
 }
