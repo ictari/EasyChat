@@ -18,6 +18,7 @@ namespace Chat.Hubs
     {
         private readonly IConnectionManager connectionManager;
         private readonly IChatDbContext chatContext;
+        private readonly int maximumUserLimit = 20;
         public IIdentity Identity { get { return Context.User.Identity; } }
 
         public ChatHub(IConnectionManager connectionManager, IChatDbContext chatContext)
