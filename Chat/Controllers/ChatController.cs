@@ -35,7 +35,7 @@ namespace Chat.Controllers
             var users = connectionManager.GetUsers();
             var messages = chatContext.Messages.OrderByDescending(m => m.Date)
                                       .Take(15)
-                                      .Select(s => new { s.Username, Message = s.MessageText });
+                                      .Select(s => new { s.Username, Message = s.Text });
             return Json(new
             {
                 Users = users,

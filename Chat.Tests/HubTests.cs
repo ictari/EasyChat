@@ -38,7 +38,7 @@ namespace Chat.Tests
 
             var savedMessage = mockChatContext.Object.Messages.First();
             Assert.AreEqual(savedMessage.Username, username);
-            Assert.AreEqual(savedMessage.MessageText, message);
+            Assert.AreEqual(savedMessage.Text, message);
 
             hub.MockAll.VerifyAll();
         }

@@ -34,7 +34,7 @@ namespace Chat.Hubs
             var messageEntity = new Message
             {
                 Username = Identity.Name,
-                MessageText = message,
+                Text = message,
                 Date = DateTimeOffset.UtcNow
             };
 
